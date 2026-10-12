@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fix Android and iOS compilation by gating desktop window actions.
 * Return an unsupported-action error for focus, minimize, and maximize on mobile.
 
+### Changed
+
+* Add an Android cross-compilation check in CI.
+
 ## [0.13.1] - 2026-10-09
 
 ### Changed
