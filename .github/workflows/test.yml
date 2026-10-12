@@ -71,6 +71,54 @@ jobs:
           cd packages/tauri-plugin-mcp-bridge
           cargo clippy -- -D warnings
 
+  test-plugin-android:
+    name: Check tauri-plugin-mcp-bridge (Android)
+    runs-on: ubuntu-latest
+
+    env:
+      ANDROID_NDK_VERSION: "27.2.12479018"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android NDK
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-35" \
+            "build-tools;35.0.0" "ndk;${ANDROID_NDK_VERSION}"
+          echo "NDK_HOME=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION}" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION}" >> "$GITHUB_ENV"
+
+      - name: Install Rust stable (Android target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+
+      - name: Cache Rust dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-plugin-android-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Cargo check (aarch64-linux-android)
+        run: |
+          cd packages/tauri-plugin-mcp-bridge
+          cargo check --lib --target aarch64-linux-android
+
   test-server:
     name: Test @hypothesi/tauri-mcp-server
     runs-on: ${{ matrix.os }}
@@ -205,7 +253,7 @@ jobs:
 
   all-tests-pass:
     name: All Tests Pass
-    needs: [test-plugin, test-server, test-app, lint-and-standards, validate-cli-skills]
+    needs: [test-plugin, test-plugin-android, test-server, test-app, lint-and-standards, validate-cli-skills]
     runs-on: ubuntu-latest
     steps:
       - name: Success
