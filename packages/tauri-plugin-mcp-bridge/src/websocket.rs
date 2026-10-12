@@ -249,32 +249,23 @@ async fn handle_invoke_tauri<R: Runtime>(app: &AppHandle<R>, id: &str, args: &Va
     }
 }
 
-/// Handles desktop window focus, minimize, and maximize actions.
+/// Handles window focus, minimize, and maximize actions (desktop); unsupported on mobile.
 async fn handle_set_window_state<R: Runtime>(app: &AppHandle<R>, id: &str, args: &Value) -> Value {
-    let window_label = args
+    let window_id = args
         .get("windowId")
         .and_then(|value| value.as_str())
-        .unwrap_or("main");
+        .map(|s| s.to_string());
+    let window_label = window_id.as_deref().unwrap_or("main").to_string();
     let Some(action) = args.get("action").and_then(|value| value.as_str()) else {
         return error_response(id, "Missing action in args");
     };
-    let Some(window) = app.get_webview_window(window_label) else {
-        return error_response(id, format!("Window not found: {window_label}"));
-    };
 
-    let result = match action {
-        "focus" => window.set_focus(),
-        "minimize" => window.minimize(),
-        "maximize" => window.maximize(),
-        _ => return error_response(id, format!("Unknown window state action: {action}")),
-    };
-
-    match result {
+    match commands::set_window_state(app.clone(), window_id, action).await {
         Ok(()) => success_response(
             id,
             serde_json::json!({ "action": action, "windowId": window_label }),
         ),
-        Err(error) => error_response(id, error.to_string()),
+        Err(error) => error_response(id, error),
     }
 }
 
