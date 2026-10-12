@@ -16,6 +16,7 @@ pub mod resize_window;
 pub mod screenshot;
 pub mod script_executor;
 pub mod script_injection;
+pub mod set_window_state;
 pub mod window_info;
 
 // Re-export types and commands for convenience
@@ -35,4 +36,5 @@ pub use resize_window::{resize_window, ResizeWindowParams, ResizeWindowResult};
 pub use screenshot::capture_native_screenshot;
 pub use script_executor::script_result;
 pub use script_injection::request_script_injection;
+pub use set_window_state::set_window_state;
 pub use window_info::get_window_info;
