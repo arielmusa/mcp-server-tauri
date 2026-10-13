@@ -1,6 +1,6 @@
 # Tauri 2.12.0 compatibility release
 
-Version `0.13.1-tauri.2.12.0.1` branches from `v0.13.1` on
+Version `0.13.1-tauri.2.12.0.2` branches from `v0.13.1` on
 `compat/tauri-2.12.0`. It retains the 0.13.1 fixes and requires exactly
 Tauri 2.12.0 and JavaScript API 2.12.0. Rust 1.90 remains required.
 
@@ -13,14 +13,14 @@ latest. Cargo consumers must explicitly opt into the prerelease.
 ## Installation
 
 ```bash
-npm install --save-exact @hypothesi/tauri-plugin-mcp-bridge@0.13.1-tauri.2.12.0.1 @tauri-apps/api@2.12.0
-npm install --save-exact @hypothesi/tauri-mcp-cli@0.13.1-tauri.2.12.0.1
+npm install --save-exact @hypothesi/tauri-plugin-mcp-bridge@0.13.1-tauri.2.12.0.2 @tauri-apps/api@2.12.0
+npm install --save-exact @hypothesi/tauri-mcp-cli@0.13.1-tauri.2.12.0.2
 ```
 
 ```toml
 [dependencies]
 tauri = "=2.12.0"
-tauri-plugin-mcp-bridge = "=0.13.1-tauri.2.12.0.1"
+tauri-plugin-mcp-bridge = "=0.13.1-tauri.2.12.0.2"
 ```
 
 ## Seven-day release age

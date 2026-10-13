@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.13.1-tauri.2.12.0.2] - 2026-10-12
+
+### Changed
+
+* Update the pinned server dependency to `0.13.1-tauri.2.12.0.2`.
+* Wait for the initial Tauri window in CLI tests.
+
 ## [0.13.1-tauri.2.12.0.1] - 2026-10-09
 
 ### Changed

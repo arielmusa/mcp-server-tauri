@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.1-tauri.2.12.0.2] - 2026-10-12
+
 ### Fixed
 
-- Fixed compilation error on Android and iOS caused by desktop-only `set_focus()`, `minimize()`, and `maximize()` APIs in `set_window_state`.
-- Window focus, minimize, and maximize requests on mobile now return a graceful error message instead of failing to compile.
+* Fix Android and iOS compilation by gating desktop window actions.
+* Return an unsupported-action error for focus, minimize, and maximize on mobile.
+
+### Changed
+
+* Add an Android cross-compilation check in CI.
 
 ## [0.13.1-tauri.2.12.0.1] - 2026-10-09
 
