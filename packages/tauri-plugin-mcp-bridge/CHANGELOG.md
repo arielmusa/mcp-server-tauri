@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.2] - 2026-10-22
+
 ### Fixed
 
 * Fix Android and iOS compilation by gating desktop window actions.
